@@ -2,102 +2,63 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 
 public class DirectoriesNavigator {
-        private ProcessBuilder pb;
-    public DirectoriesNavigator(ProcessBuilder pb){
-       this.pb=pb;
+    private ProcessBuilder pb;
+    BufferedReader r;
+    BufferedWriter w;
+    private ArrayList<String> ChildDirectories;
+
+    public DirectoriesNavigator(ProcessBuilder pb) {
+        this.pb = pb;
+        ChildDirectories = new ArrayList<String>();
     }
 
-    public String ShowDirectories(){
-     
-        try {
-        Process p=pb.start();
+    public ArrayList<String> ShowDirectories() {
 
-        BufferedReader Reader= new BufferedReader(new InputStreamReader(p.getInputStream()));
-            BufferedWriter writer=new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+        try {
+            Process p = pb.start();
+
+            BufferedReader Reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
 
             writer.write("ls\n");
+            writer.write("echo __end__\n");
             writer.flush();
 
-
-
-            String line;
-            String LastLine="";
-            System.out.println("Current child Directories are: ");
-            while((line=Reader.readLine())!=null){
+            String line=new String();
+            System.out.println("Current childclear Directories are: ");
+            int count = 0;
+            while (!(line=Reader.readLine()).equals("__end__")) {
+                
                 System.out.println(line);
+                System.out.println(count);
+                count++;
+                ChildDirectories.add(line);
+             
 
-                LastLine=line;
             }
 
-
-        Reader.close();
-        return LastLine;
+            writer.close();
+            Reader.close();
+            return ChildDirectories;
         } catch (Exception e) {
-            System.out.println("This exception occured while starting the process. "+e.getMessage());
-            return e.getMessage();
-           
+            System.out.println("This exception occured while starting the process. " + e.getMessage());
+            ChildDirectories.clear();
+            ChildDirectories.add(".");
+            return ChildDirectories;
+
         }
     }
 
+    // public void EnterIntoChildDirectory(String ChildDir) {
+    //     try {
 
-    public void EnterIntoChildDirectory(String ChildDir){
-        try {
-            
-            ProcessBuilder pb=new ProcessBuilder("cd",ChildDir);
-            Process p=pb.start();
-            BufferedReader reader=new BufferedReader(new InputStreamReader(p.getInputStream()));
+    //     } catch (Exception e) {
+    //         System.out.println("following exception occured " + e.getMessage());
+    //     }
 
+    // }
 
-            BufferedWriter Writer=new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
-
-            String line;
-            line=reader.readLine();
-
-            System.out.println("Entering into "+line+" Directory");
-
-            Writer.write("ls\n");
-            Writer.flush();
-
-            Writer.write("mkdir newdir\n");
-            Writer.flush();
-
-            Writer.write("ls\n");
-            Writer.flush();
-
-            System.out.println("Directories in this folder");
-
-            while((
-            line=reader.readLine())!=null){
-                System.out.println(line);
-            }
-
-
-
-            Writer.close();
-            reader.close();
-
-
-            
-        } catch (Exception e) {
-            System.out.println("following exception occured "+e.getMessage());
-        }
-
-
-
-
-    }
-
-
-
-    
 }
-
-
-
-
-
-
-
-
