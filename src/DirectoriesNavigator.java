@@ -6,8 +6,7 @@ import java.util.ArrayList;
 
 public class DirectoriesNavigator {
     private ProcessBuilder pb;
-    BufferedReader r;
-    BufferedWriter w;
+    
     private ArrayList<String> ChildDirectories;
 
     public DirectoriesNavigator(ProcessBuilder pb) {
@@ -27,16 +26,15 @@ public class DirectoriesNavigator {
             writer.write("echo __end__\n");
             writer.flush();
 
-            String line=new String();
+            String line = new String();
+
             System.out.println("Current childclear Directories are: ");
-            int count = 0;
-            while (!(line=Reader.readLine()).equals("__end__")) {
-                
+
+            while (!(line = Reader.readLine()).equals("__end__")) {
+
                 System.out.println(line);
-                System.out.println(count);
-                count++;
+
                 ChildDirectories.add(line);
-             
 
             }
 
@@ -52,13 +50,31 @@ public class DirectoriesNavigator {
         }
     }
 
-    // public void EnterIntoChildDirectory(String ChildDir) {
-    //     try {
+    public void EnterIntoChildDirectory(String ChildDir) {
+        try {
+            Process p = pb.start();
 
-    //     } catch (Exception e) {
-    //         System.out.println("following exception occured " + e.getMessage());
-    //     }
 
-    // }
+            BufferedReader Reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+
+
+
+
+            writer.write("cd "+ChildDir+"\n");
+            writer.flush();
+
+
+            ShowDirectories();
+
+
+
+            // Reader.readLine();
+
+        } catch (Exception e) {
+            System.out.println("following exception occured " + e.getMessage());
+        }
+
+    }
 
 }
