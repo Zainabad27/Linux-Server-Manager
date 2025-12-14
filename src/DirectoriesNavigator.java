@@ -4,23 +4,30 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class DirectoriesNavigator {
-
-    public DirectoriesNavigator(){
-       
+        private ProcessBuilder pb;
+    public DirectoriesNavigator(ProcessBuilder pb){
+       this.pb=pb;
     }
 
     public String ShowDirectories(){
-        ProcessBuilder pb=new ProcessBuilder("ls");
+     
         try {
         Process p=pb.start();
 
         BufferedReader Reader= new BufferedReader(new InputStreamReader(p.getInputStream()));
+            BufferedWriter writer=new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
+
+            writer.write("ls\n");
+            writer.flush();
+
 
 
             String line;
             String LastLine="";
+            System.out.println("Current child Directories are: ");
             while((line=Reader.readLine())!=null){
                 System.out.println(line);
+
                 LastLine=line;
             }
 
