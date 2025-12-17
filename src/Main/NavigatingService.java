@@ -1,3 +1,5 @@
+package Main;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -30,12 +32,59 @@ public class NavigatingService implements INavigatingService {
                 continue;
             }
             System.out.println("Enter the corresponding number to enter a directory ");
+            System.out.println("Enter Corresponding number Starting with D to delete that File/Directory");
             System.out.println("Enter X to Quit");
             System.out.println("Press P to move to parent Directory ");
             UserInput = sc.nextLine();
 
             if (UserInput.equals("p") || UserInput.equals("P")) {
                 dn.EnterIntoTheParentDirectory();
+            }
+            if (UserInput.startsWith("D") || UserInput.startsWith("d")) {
+                if (UserInput.length() == 2) {
+                    char FirstDigit = UserInput.charAt(1);
+                    if (isValidInt(String.valueOf(FirstDigit))) {
+                        int userinput = Integer.parseInt(String.valueOf(FirstDigit));
+                        if (userinput > DirectoriesContainer.size()) {
+                            System.out.println("Invalid Input to delete File/Directory");
+                            continue;
+                        }
+
+                        boolean IsDirectory = dn.IsDirectory(DirectoriesContainer.get(userinput - 1));
+
+                        if (IsDirectory) {
+                            dn.RemoveDirectory(DirectoriesContainer.get(userinput - 1));
+                            continue;
+                        } else {
+                            dn.RemoveFile(DirectoriesContainer.get(userinput - 1));
+                            continue;
+                        }
+
+                    } else {
+                        System.out.println("Invalid User Input for deletion purpose.");
+                    }
+                } else if (UserInput.length() == 3) {
+                    char FirstDigit = UserInput.charAt(1);
+                    char SecondDigit = UserInput.charAt(2);
+                    if (isValidInt(String.valueOf(FirstDigit + SecondDigit))) {
+                        int userinput = Integer.parseInt(String.valueOf(FirstDigit+SecondDigit));
+                        if (userinput > DirectoriesContainer.size()) {
+                            System.out.println("Invalid Input to delete File/Directory");
+                            continue;
+                        }
+
+                        boolean IsDirectory = dn.IsDirectory(DirectoriesContainer.get(userinput - 1));
+
+                        if (IsDirectory) {
+                            dn.RemoveDirectory(DirectoriesContainer.get(userinput - 1));
+                            continue;
+                        } else {
+                            dn.RemoveFile(DirectoriesContainer.get(userinput - 1));
+                            continue;
+                        }
+
+                    }
+                }
             }
             if (isValidInt(UserInput.trim())) {
                 int userinput = Integer.parseInt(UserInput) - 1;

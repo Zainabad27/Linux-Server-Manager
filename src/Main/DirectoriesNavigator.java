@@ -1,3 +1,5 @@
+package Main;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 // import java.io.InputStreamReader;
@@ -7,7 +9,9 @@ import java.util.ArrayList;
 import Interfaces.IDirectoriesNavigator;
 
 public class DirectoriesNavigator implements IDirectoriesNavigator {
+
     private Process p;
+
     private BufferedReader r;
     private BufferedWriter w;
 
@@ -18,13 +22,16 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
         this.r = r;
         this.w = w;
 
-     
-
         ChildDirectories = new ArrayList<String>();
     }
 
+    @Override
+    public Process GetProcess() {
+        return this.p;
+    }
+
     public String ShowCurrentWorkingDirectory() throws Exception {
-        p.pid();
+
         w.write("clear\n");
         w.write("pwd\n");
 
@@ -76,9 +83,17 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     public void EnterIntoChildDirectory(String ChildDir) {
         try {
             w.write("cd " + ChildDir + "\n");
+            w.write("echo __end__\n");
             w.flush();
 
-            System.out.println("Entered into the Child Directory: " + ChildDir);
+            String Line;
+            Line = r.readLine();
+            if (Line.equals("bash: cd: ucf.conf: Not a directory")) {
+                System.out.println("The Directory you are trying to enter is a file.");
+            } else {
+                System.out.println("Entered into the Child Directory: " + ChildDir);
+
+            }
 
         } catch (Exception e) {
             System.out.println("following exception occured " + e.getMessage());
@@ -90,6 +105,62 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     public void EnterIntoTheParentDirectory() throws Exception {
         w.write("cd ..\n");
         w.flush();
+    }
+
+    public boolean IsDirectory(String Directory) throws Exception {
+        w.write("cd " + Directory + "\n");
+        w.write("echo __end__\n");
+        w.flush();
+
+        String Line;
+        Line = r.readLine();
+        if (Line.equals("__end__")) {
+            /*
+             * Have to return to parent directory after checking otherwise process will be
+             * in another directory and wont be able to delete the directory intended.
+             */
+            w.write("cd ..\n");
+            w.flush();
+
+            return true;
+        } else {
+            System.out.println(Line);
+            return false;
+        }
+
+    }
+
+    @Override
+    public void RemoveDirectory(String Directory) throws Exception {
+
+        w.write("rm -r " + Directory + "\n");
+        w.write("echo __end__\n");
+        w.flush();
+
+        String Line;
+        Line = r.readLine();
+        if (Line.equals("__end__")) {
+            System.out.println(Directory + " Removed.");
+        } else {
+            System.out.println(Line);
+        }
+
+    }
+
+    @Override
+    public void RemoveFile(String Filename) throws Exception {
+        w.write("rm " + Filename + "\n");
+        w.write("echo __end__\n");
+        w.flush();
+
+        String Line;
+        Line = r.readLine();
+        if (Line.equals("__end__")) {
+            System.out.println(Filename + " Removed.");
+        } else {
+            System.out.println(Line);
+        }
+
     }
 
 }
