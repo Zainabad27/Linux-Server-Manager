@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import Interfaces.IDirectoriesNavigator;
+import Interfaces.INavigatingService;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,38 +20,13 @@ public class Main {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
             IDirectoriesNavigator dn = new DirectoriesNavigator(p, reader, writer);
 
-            dn.ShowCurrentWorkingDirectory();
+            INavigatingService Navigator = new NavigatingService(dn);
 
-           ArrayList<String> ChildDirs= dn.ShowChildDirectories();
-            // for (int i=0;i<ChildDirs.size();i++) {
-            //     System.out.println((i+1)+": "+ChildDirs.get(i) );
-
-            // }
-
-
-            dn.EnterIntoChildDirectory(ChildDirs.get(0));
-
-            dn.ShowCurrentWorkingDirectory();
-
-            dn.ShowChildDirectories();
-
-            dn.EnterIntoTheParentDirectory();
-
-            dn.ShowCurrentWorkingDirectory();
-
-            String cr=dn.GetPWD();
-            System.out.println("CR is: ");
-            // System.out.println(cr);
-
-            System.out.println("MAMA");
-
-
-
-
-
+            Navigator.Naviagte();
 
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("App Crashed.");
+            System.out.println("Following Exception occured: " + e.getMessage());
         }
 
     }

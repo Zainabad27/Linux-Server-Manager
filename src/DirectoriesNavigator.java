@@ -22,6 +22,8 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     }
 
     public String ShowCurrentWorkingDirectory() throws Exception {
+
+        w.write("clear\n");
         w.write("pwd\n");
 
         w.write("echo __end__\n");
@@ -42,7 +44,7 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     public String GetPWD() throws Exception {
         w.write("clear\n");
         w.write("pwd\n");
-        
+
         w.flush();
 
         String Line;
