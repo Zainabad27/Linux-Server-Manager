@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+// import java.io.InputStreamReader;
+// import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 import Interfaces.IDirectoriesNavigator;
@@ -18,11 +18,13 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
         this.r = r;
         this.w = w;
 
+     
+
         ChildDirectories = new ArrayList<String>();
     }
 
     public String ShowCurrentWorkingDirectory() throws Exception {
-
+        p.pid();
         w.write("clear\n");
         w.write("pwd\n");
 

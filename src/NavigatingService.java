@@ -17,9 +17,10 @@ public class NavigatingService implements INavigatingService {
 
     public void Naviagte() throws Exception {
         System.out.println("Linux Server Manager");
-        dn.ShowCurrentWorkingDirectory();
+
         String UserInput = "";
         do {
+            dn.ShowCurrentWorkingDirectory();
             DirectoriesContainer = dn.ShowChildDirectories();
             if (DirectoriesContainer.isEmpty()) {
                 System.out.println("No Child Directories Found");
@@ -36,8 +37,8 @@ public class NavigatingService implements INavigatingService {
             if (UserInput.equals("p") || UserInput.equals("P")) {
                 dn.EnterIntoTheParentDirectory();
             }
-            if (isValidInt(UserInput)) {
-                int userinput = Integer.parseInt(UserInput);
+            if (isValidInt(UserInput.trim())) {
+                int userinput = Integer.parseInt(UserInput) - 1;
                 if (userinput > DirectoriesContainer.size()) {
                     System.out
                             .println("Invalid Input Please Enter a Number Smaller than" + DirectoriesContainer.size());
@@ -47,18 +48,25 @@ public class NavigatingService implements INavigatingService {
 
             }
 
-        } while (!(UserInput.equals("x")));
+            DirectoriesContainer.clear();
+
+        } while (!(UserInput.equals("x") || UserInput.equals("X")));
 
     }
 
     public static boolean isValidInt(String s) {
+        // this function checks that the string is a valid integer and also greater than
+        // 0.
+        if (s.equals("0"))
+            return false;
+
         if (s == null || s.isEmpty())
             return false;
 
         int start = 0;
 
         if (s.charAt(0) == '-') {
-
+            System.out.println("Please Enter a Positive Integer.");
             return false;
 
         }
