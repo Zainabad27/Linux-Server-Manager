@@ -6,9 +6,9 @@ public interface IDirectoriesNavigator {
 
     Process GetProcess();
 
-    void RemoveDirectory(String Directory) throws Exception;
+    boolean RemoveDirectory(String Directory) throws Exception;
 
-    void RemoveFile(String Filename) throws Exception;
+    boolean RemoveFile(String Filename) throws Exception;
 
     boolean IsDirectory(String Directory) throws Exception;
 

@@ -131,7 +131,7 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     }
 
     @Override
-    public void RemoveDirectory(String Directory) throws Exception {
+    public boolean RemoveDirectory(String Directory) throws Exception {
 
         w.write("rm -r " + Directory + "\n");
         w.write("echo __end__\n");
@@ -141,14 +141,16 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
         Line = r.readLine();
         if (Line.equals("__end__")) {
             System.out.println(Directory + " Removed.");
+            return true;
         } else {
             System.out.println(Line);
+            return false;
         }
 
     }
 
     @Override
-    public void RemoveFile(String Filename) throws Exception {
+    public boolean RemoveFile(String Filename) throws Exception {
         w.write("rm " + Filename + "\n");
         w.write("echo __end__\n");
         w.flush();
@@ -157,8 +159,10 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
         Line = r.readLine();
         if (Line.equals("__end__")) {
             System.out.println(Filename + " Removed.");
+            return true;
         } else {
             System.out.println(Line);
+            return false;
         }
 
     }
