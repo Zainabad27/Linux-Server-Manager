@@ -112,8 +112,13 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
         w.write("echo __end__\n");
         w.flush();
 
-        String Line;
+        String Line, Line2, Line3, Line4;
+
         Line = r.readLine();
+        // Line2 = r.readLine();
+        // Line3 = r.readLine();
+        // Line4 = r.readLine();
+
         if (Line.equals("__end__")) {
             /*
              * Have to return to parent directory after checking otherwise process will be
