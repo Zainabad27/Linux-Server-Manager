@@ -52,7 +52,7 @@ public class NavigatingService implements INavigatingService {
                         int userinput = Integer.parseInt(String.valueOf(FirstDigit));
                         if (userinput > DirectoriesContainer.size()) {
                             System.out.println("Invalid Input to delete File/Directory");
-                            // DirectoriesContainer.clear();
+                            sc.nextLine();
                             continue;
                         }
 
@@ -61,13 +61,13 @@ public class NavigatingService implements INavigatingService {
                         if (IsDirectory) {
                             dn.RemoveDirectory(DirectoriesContainer.get(userinput - 1));
 
-                            // DirectoriesContainer.clear();
-
+                            System.out.println("Removed.");
+                            sc.nextLine();
                             continue;
                         } else {
                             dn.RemoveFile(DirectoriesContainer.get(userinput - 1));
-                            // DirectoriesContainer.clear();
-
+                            System.out.println("Removed.");
+                            sc.nextLine();
                             continue;
                         }
 
@@ -88,14 +88,40 @@ public class NavigatingService implements INavigatingService {
                         boolean IsDirectory = dn.IsDirectory(DirectoriesContainer.get(userinput - 1));
 
                         if (IsDirectory) {
-                            dn.RemoveDirectory(DirectoriesContainer.get(userinput - 1));
+                            String Confirmation;
+                            System.out.println("Enter the Directory Name To delete it: ");
+                            Confirmation = sc.nextLine();
+                            if (Confirmation.equals(DirectoriesContainer.get(userinput - 1))) {
+                                dn.RemoveDirectory(DirectoriesContainer.get(userinput - 1));
+                            } else {
+                                System.out.println("Directory Name Not Matched");
+                            }
+
+                            sc.nextLine();
                             continue;
                         } else {
-                            dn.RemoveFile(DirectoriesContainer.get(userinput - 1));
+                            String Confirmation;
+                            System.out.println("Enter the File Name To delete it: ");
+                            Confirmation = sc.nextLine();
+                            if (Confirmation.equals(DirectoriesContainer.get(userinput - 1))) {
+                                dn.RemoveFile(DirectoriesContainer.get(userinput - 1));
+                            } else {
+                                System.out.println("File Name Not Matched");
+                            }
+
+                            sc.nextLine();
                             continue;
                         }
 
+                    } else {
+                        System.out.println("Invalid Input");
+                        sc.nextLine();
+                        continue;
                     }
+                } else {
+                    System.out.println("Invalid Input");
+                    sc.nextLine();
+                    continue;
                 }
             }
             if (isValidInt(UserInput.trim())) {
@@ -104,7 +130,13 @@ public class NavigatingService implements INavigatingService {
                     System.out
                             .println("Invalid Input Please Enter a Number Smaller than" + DirectoriesContainer.size());
                 } else {
+                    if (!(dn.IsDirectory(DirectoriesContainer.get(userinput)))) {
+                        // System.out.println("Not a Directory.");
+                        sc.nextLine();
+                        continue;
+                    }
                     dn.EnterIntoChildDirectory(DirectoriesContainer.get(userinput));
+
                     continue;
                 }
 

@@ -83,17 +83,12 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     public void EnterIntoChildDirectory(String ChildDir) {
         try {
             w.write("cd " + ChildDir + "\n");
-            w.write("echo __end__\n");
+            // w.write("echo __end__\n");
             w.flush();
 
-            String Line;
-            Line = r.readLine();
-            if (Line.equals("bash: cd: ucf.conf: Not a directory")) {
-                System.out.println("The Directory you are trying to enter is a file.");
-            } else {
-                System.out.println("Entered into the Child Directory: " + ChildDir);
-
-            }
+            // String Line;
+            // Line = r.readLine();
+           
 
         } catch (Exception e) {
             System.out.println("following exception occured " + e.getMessage());
@@ -108,24 +103,18 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     }
 
     public boolean IsDirectory(String Directory) throws Exception {
-        w.write("cd " + Directory + "\n");
-        w.write("echo __end__\n");
+        // w.write("cd " + Directory + "\n");
+        // w.write("echo __end__\n");
+        // w.flush();
+
+        w.write("[ -d "+Directory+" ] && echo 'Dir' || echo 'Not a Directory'\n");
         w.flush();
 
-        String Line, Line2, Line3, Line4;
+        String Line;
 
         Line = r.readLine();
-        // Line2 = r.readLine();
-        // Line3 = r.readLine();
-        // Line4 = r.readLine();
 
-        if (Line.equals("__end__")) {
-            /*
-             * Have to return to parent directory after checking otherwise process will be
-             * in another directory and wont be able to delete the directory intended.
-             */
-            w.write("cd ..\n");
-            w.flush();
+        if (Line.equals("Dir")) {
 
             return true;
         } else {
@@ -136,39 +125,30 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     }
 
     @Override
-    public boolean RemoveDirectory(String Directory) throws Exception {
+    public void RemoveDirectory(String Directory) throws Exception {
 
         w.write("rm -r " + Directory + "\n");
-        w.write("echo __end__\n");
+      
         w.flush();
 
-        String Line;
-        Line = r.readLine();
-        if (Line.equals("__end__")) {
-            System.out.println(Directory + " Removed.");
-            return true;
-        } else {
-            System.out.println(Line);
-            return false;
-        }
 
     }
 
     @Override
-    public boolean RemoveFile(String Filename) throws Exception {
+    public void RemoveFile(String Filename) throws Exception {
         w.write("rm " + Filename + "\n");
-        w.write("echo __end__\n");
+      
         w.flush();
 
-        String Line;
-        Line = r.readLine();
-        if (Line.equals("__end__")) {
-            System.out.println(Filename + " Removed.");
-            return true;
-        } else {
-            System.out.println(Line);
-            return false;
-        }
+        // String Line;
+        // Line = r.readLine();
+        // if (Line.equals("__end__")) {
+        //     System.out.println(Filename + " Removed.");
+        //     return true;
+        // } else {
+        //     System.out.println(Line);
+        //     return false;
+        // }
 
     }
 
