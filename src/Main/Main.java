@@ -13,10 +13,10 @@ import Repositories.BackupRepo;
 public class Main {
     public static void main(String[] args) {
         ProcessBuilder pb = new ProcessBuilder("bash");
-        // Scanner scan=new Scanner(System.out);
+        //  Scanner scan=new Scanner(System.out);
         IBackupRepo repo=new BackupRepo();
-        repo.TakeBackup("TESTFOLDER2", "TESTFOLDERDES2");
-        repo.printAllRecords();
+        // // repo.TakeBackup("TESTFOLDER3", "TESTFOLDERDES3");
+        // repo.printAllRecords();
 
 
 
@@ -26,9 +26,9 @@ public class Main {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
             IDirectoriesNavigator dn = new DirectoriesNavigator(p, reader, writer);
 
-            INavigatingService Navigator = new NavigatingService(dn);
+            INavigatingService Navigator = new NavigatingService(dn,repo);
 
-            // Navigator.Naviagte();
+            Navigator.Naviagte();
 
         } catch (Exception e) {
             System.out.println("App Crashed.");

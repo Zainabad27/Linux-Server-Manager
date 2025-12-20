@@ -3,17 +3,20 @@ package Main;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Interfaces.IBackupRepo;
 import Interfaces.IDirectoriesNavigator;
 import Interfaces.INavigatingService;
 
 public class NavigatingService implements INavigatingService {
     IDirectoriesNavigator dn;
+    IBackupRepo br;
     Scanner sc;
     ArrayList<String> DirectoriesContainer;
 
-    public NavigatingService(IDirectoriesNavigator dn) {
+    public NavigatingService(IDirectoriesNavigator dn, IBackupRepo br) {
 
         this.dn = dn;
+        this.br = br;
         this.sc = new Scanner(System.in);
         DirectoriesContainer = new ArrayList<>();
     }
