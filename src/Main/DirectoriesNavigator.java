@@ -88,7 +88,6 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
 
             // String Line;
             // Line = r.readLine();
-           
 
         } catch (Exception e) {
             System.out.println("following exception occured " + e.getMessage());
@@ -107,7 +106,7 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
         // w.write("echo __end__\n");
         // w.flush();
 
-        w.write("[ -d "+Directory+" ] && echo 'Dir' || echo 'Not a Directory'\n");
+        w.write("[ -d " + Directory + " ] && echo 'Dir' || echo 'Not a Directory'\n");
         w.flush();
 
         String Line;
@@ -128,27 +127,42 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     public void RemoveDirectory(String Directory) throws Exception {
 
         w.write("rm -r " + Directory + "\n");
-      
-        w.flush();
 
+        w.flush();
 
     }
 
     @Override
     public void RemoveFile(String Filename) throws Exception {
         w.write("rm " + Filename + "\n");
-      
+
         w.flush();
 
         // String Line;
         // Line = r.readLine();
         // if (Line.equals("__end__")) {
-        //     System.out.println(Filename + " Removed.");
-        //     return true;
+        // System.out.println(Filename + " Removed.");
+        // return true;
         // } else {
-        //     System.out.println(Line);
-        //     return false;
+        // System.out.println(Line);
+        // return false;
         // }
+
+    }
+
+    @Override
+    public void backupFile(String File) throws Exception {
+        w.write("mkdir -p /home/zainabad/ProjectBackups\n");
+        w.write("cp " + File + " /home/zainabad/ProjectBackups\n");
+        w.flush();
+
+    }
+
+    @Override
+    public void backupDirectory(String Directory) throws Exception {
+        w.write("mkdir -p /home/zainabad/ProjectBackups\n");
+        w.write("cp -r" + Directory + " /home/zainabad/ProjectBackups\n");
+        w.flush();
 
     }
 

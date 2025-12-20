@@ -5,13 +5,20 @@ import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+import Interfaces.IBackupRepo;
 import Interfaces.IDirectoriesNavigator;
 import Interfaces.INavigatingService;
+import Repositories.BackupRepo;
 
 public class Main {
     public static void main(String[] args) {
         ProcessBuilder pb = new ProcessBuilder("bash");
         // Scanner scan=new Scanner(System.out);
+        IBackupRepo repo=new BackupRepo();
+        repo.TakeBackup("TESTFOLDER", "TESTFOLDERDES");
+        repo.printAllRecords();
+
+
 
         try {
             Process p = pb.start();
@@ -21,7 +28,7 @@ public class Main {
 
             INavigatingService Navigator = new NavigatingService(dn);
 
-            Navigator.Naviagte();
+            // Navigator.Naviagte();
 
         } catch (Exception e) {
             System.out.println("App Crashed.");
