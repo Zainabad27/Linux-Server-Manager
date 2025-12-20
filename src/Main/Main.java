@@ -15,7 +15,7 @@ public class Main {
         ProcessBuilder pb = new ProcessBuilder("bash");
         // Scanner scan=new Scanner(System.out);
         IBackupRepo repo=new BackupRepo();
-        repo.TakeBackup("TESTFOLDER", "TESTFOLDERDES");
+        repo.TakeBackup("TESTFOLDER2", "TESTFOLDERDES2");
         repo.printAllRecords();
 
 

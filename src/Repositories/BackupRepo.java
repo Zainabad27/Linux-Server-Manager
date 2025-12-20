@@ -37,7 +37,7 @@ public class BackupRepo implements IBackupRepo {
 
     public void TakeBackup(String BackedupRepo, String Destination) {
 
-        String Sql = "INSERT INTO backup_history (BackedupRepo,Destination,dt) VALUES(?,?,?)";
+        String Sql = "INSERT INTO backup_history (backedupfolder,backedupin,createdat) VALUES(?,?,?)";
 
         Date dt = new Date();
         String date = dt.toString();
@@ -49,7 +49,7 @@ public class BackupRepo implements IBackupRepo {
             pst.setString(2, Destination);
             pst.setString(3, date);
 
-            int rows = pst.executeUpdate(Sql);
+            int rows = pst.executeUpdate();
             System.out.println(rows +" Inserted.");
             conn.close();
 
