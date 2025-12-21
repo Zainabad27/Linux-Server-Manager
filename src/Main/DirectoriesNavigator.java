@@ -154,7 +154,7 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     @Override
     public String backupDirectory(String Directory) throws Exception {
         w.write("mkdir -p /home/zainabad/ProjectBackups\n");
-        w.write("cp -r" + Directory + " /home/zainabad/ProjectBackups\n");
+        w.write("cp -r " + Directory + " /home/zainabad/ProjectBackups\n");
         w.flush();
 
 
@@ -164,7 +164,7 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
 
     @Override
     public void MakeNewDir(String DirName) throws Exception {
-        w.write("mkdir -p" + DirName + "\n");
+        w.write("mkdir -p " + DirName + "\n");
         w.flush();
     }
 

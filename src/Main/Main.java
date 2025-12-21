@@ -13,20 +13,15 @@ import Repositories.BackupRepo;
 public class Main {
     public static void main(String[] args) {
         ProcessBuilder pb = new ProcessBuilder("bash");
-        //  Scanner scan=new Scanner(System.out);
-        IBackupRepo repo=new BackupRepo();
-        // // repo.TakeBackup("TESTFOLDER3", "TESTFOLDERDES3");
-        // repo.printAllRecords();
-
-
+        IBackupRepo repo = new BackupRepo();
 
         try {
-            Process p = pb.start(); 
+            Process p = pb.start();
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
             IDirectoriesNavigator dn = new DirectoriesNavigator(p, reader, writer);
 
-            INavigatingService Navigator = new NavigatingService(dn,repo);
+            INavigatingService Navigator = new NavigatingService(dn, repo);
 
             Navigator.Naviagte();
 

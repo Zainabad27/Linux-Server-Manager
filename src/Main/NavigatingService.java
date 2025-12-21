@@ -32,19 +32,33 @@ public class NavigatingService implements INavigatingService {
             DirectoriesContainer = dn.ShowChildDirectories();
             if (DirectoriesContainer.isEmpty()) {
                 System.out.println("No Child Directories Found");
-                System.out.println("Press Any Key to Move to the Parent Directory");
+                System.out.println("Press N to Create new Directory.");
+                System.out.println("Press F to Create new File.");
+                System.out.println("Press Any Other Key to Move to the Parent Directory");
                 UserInput = sc.nextLine();
                 dn.EnterIntoTheParentDirectory();
                 continue;
             }
+            System.out.println("Press C to get Current Directory.");
             System.out.println("Enter the corresponding number to enter a directory ");
             System.out.println("Press Corresponding number Starting with D to delete that File/Directory");
             System.out.println("Press P to move to parent Directory ");
             System.out.println("Press Corresponding number Starting with B to take Backup.");
+            System.out.println("Press H to see All Backup History.");
             System.out.println("Press N to Make a new Directory.");
             System.out.println("Press f to make a new File.");
             System.out.println("Enter X to Quit");
             UserInput = sc.nextLine();
+            if (UserInput.equals("h") || UserInput.equals("H")) {
+                br.printAllRecords();
+                sc.nextLine();
+                continue;
+            }
+            if (UserInput.equals("C") || UserInput.equals("c")) {
+                dn.ShowCurrentWorkingDirectory();
+                sc.nextLine();
+                continue;
+            }
             if (UserInput.startsWith("B") || UserInput.startsWith("b")) {
                 if (UserInput.length() == 2) {
                     char FirstDigit = UserInput.charAt(1);
@@ -120,19 +134,32 @@ public class NavigatingService implements INavigatingService {
             if (UserInput.equals("N") || UserInput.equals("n")) {
                 System.out.println("Enter the Directory name that you want to create: ");
                 String NewDir = sc.nextLine();
+                if(NewDir.trim().length()==0){
+                    System.out.println("Directory Name Cannot be Empty.");
+                    sc.nextLine();
+                    continue;
+                }
                 dn.MakeNewDir(NewDir);
+                System.out.println(NewDir+" Created.");
+                sc.nextLine();
                 continue;
             }
             if (UserInput.equals("F") || UserInput.equals("f")) {
                 System.out.println("Enter the File name that you want to create: ");
                 String NewFile = sc.nextLine();
+                if(NewFile.trim().length()==0){
+                    System.out.println("File Name Cannot be Empty.");
+                    sc.nextLine();
+                    continue;
+                }
                 dn.MakeNewFile(NewFile);
+                System.out.println(NewFile+" Created.");
+                sc.nextLine();
                 continue;
             }
 
             if (UserInput.equals("p") || UserInput.equals("P")) {
                 dn.EnterIntoTheParentDirectory();
-                // DirectoriesContainer.clear();
                 continue;
             }
             if (UserInput.startsWith("D") || UserInput.startsWith("d")) {
@@ -191,6 +218,8 @@ public class NavigatingService implements INavigatingService {
                             Confirmation = sc.nextLine();
                             if (Confirmation.equals(DirectoriesContainer.get(userinput - 1))) {
                                 dn.RemoveDirectory(DirectoriesContainer.get(userinput - 1));
+
+                                System.out.println("Removed");
                             } else {
                                 System.out.println("Directory Name Not Matched");
                             }
@@ -203,6 +232,7 @@ public class NavigatingService implements INavigatingService {
                             Confirmation = sc.nextLine();
                             if (Confirmation.equals(DirectoriesContainer.get(userinput - 1))) {
                                 dn.RemoveFile(DirectoriesContainer.get(userinput - 1));
+                                System.out.println("Removed");
                             } else {
                                 System.out.println("File Name Not Matched");
                             }
@@ -240,7 +270,8 @@ public class NavigatingService implements INavigatingService {
 
             }
 
-            // DirectoriesContainer.clear();
+            System.out.println("Invalid User Input!!");
+            sc.nextLine();
 
         } while (!(UserInput.equals("x") || UserInput.equals("X")));
 
