@@ -21,7 +21,7 @@ public class NavigatingService implements INavigatingService {
         DirectoriesContainer = new ArrayList<>();
     }
 
-    public void Naviagte() throws Exception {
+    public void RunApp() throws Exception {
         System.out.println("Linux Server Manager");
 
         String UserInput = "";
@@ -90,13 +90,15 @@ public class NavigatingService implements INavigatingService {
             }
             if (isValidInt(UserInput.trim())) {
                 NavigatingModule(UserInput, DirectoriesContainer, dn, sc);
+                continue;
+            }
+            if (!(UserInput.equals("x") || UserInput.equals("X"))) {
+                System.out.println("Invalid User Input!!!!!");
+                sc.nextLine();
             }
 
-            System.out.println("Invalid User Input!!");
-            sc.nextLine();
-
         } while (!(UserInput.equals("x") || UserInput.equals("X")));
-
+        System.out.println("App Stopped.");
     }
 
     public static void NavigatingModule(String UserInput, ArrayList<String> DirectoriesContainer,

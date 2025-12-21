@@ -23,7 +23,7 @@ public class Main {
 
             INavigatingService Navigator = new NavigatingService(dn, repo);
 
-            Navigator.Naviagte();
+            Navigator.RunApp();
 
         } catch (Exception e) {
             System.out.println("App Crashed.");

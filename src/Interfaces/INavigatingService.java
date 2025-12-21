@@ -1,7 +1,7 @@
 package Interfaces;
 
 public interface INavigatingService {
-    void Naviagte() throws Exception;
+    void RunApp() throws Exception;
 }
 
 
