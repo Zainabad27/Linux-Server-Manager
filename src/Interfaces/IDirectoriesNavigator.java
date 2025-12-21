@@ -10,9 +10,9 @@ public interface IDirectoriesNavigator {
 
     void MakeNewFile(String Filename) throws Exception;
 
-    void backupFile(String File) throws Exception;
+    String backupFile(String File) throws Exception;
 
-    void backupDirectory(String Directory) throws Exception;
+    String backupDirectory(String Directory) throws Exception;
 
     void RemoveDirectory(String Directory) throws Exception;
 

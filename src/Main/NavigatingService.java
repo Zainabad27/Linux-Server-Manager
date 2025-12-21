@@ -45,14 +45,85 @@ public class NavigatingService implements INavigatingService {
             System.out.println("Press f to make a new File.");
             System.out.println("Enter X to Quit");
             UserInput = sc.nextLine();
+            if (UserInput.startsWith("B") || UserInput.startsWith("b")) {
+                if (UserInput.length() == 2) {
+                    char FirstDigit = UserInput.charAt(1);
+                    if (isValidInt(String.valueOf(FirstDigit))) {
+                        int userinput = Integer.parseInt(String.valueOf(FirstDigit));
+                        if (userinput > DirectoriesContainer.size()) {
+                            System.out.println("Invalid Input to Backup File/Directory");
+                            sc.nextLine();
+                            continue;
+                        }
 
+                        boolean IsDirectory = dn.IsDirectory(DirectoriesContainer.get(userinput - 1));
+
+                        if (IsDirectory) {
+
+                            String destination = dn.backupDirectory(DirectoriesContainer.get(userinput - 1));
+
+                            br.TakeBackup(DirectoriesContainer.get(userinput - 1), destination);
+
+                            System.out.println("Directory Backup Successfull.");
+                            sc.nextLine();
+                            continue;
+
+                        } else {
+                            dn.backupFile(DirectoriesContainer.get(userinput - 1));
+
+                            System.out.println("File Backup Successfull.");
+                            sc.nextLine();
+                            continue;
+                        }
+
+                    } else {
+                        System.out.println("Invalid User Input for Backup.");
+                    }
+                } else if (UserInput.length() == 3) {
+                    char FirstDigit = UserInput.charAt(1);
+                    char SecondDigit = UserInput.charAt(2);
+                    String num = (String.valueOf(FirstDigit) + String.valueOf(SecondDigit));
+                    if (isValidInt(num)) {
+                        int userinput = Integer.parseInt(num);
+                        if (userinput > DirectoriesContainer.size()) {
+                            System.out.println("Invalid Input to backup File/Directory");
+                            continue;
+                        }
+
+                        boolean IsDirectory = dn.IsDirectory(DirectoriesContainer.get(userinput - 1));
+
+                        if (IsDirectory) {
+
+                            dn.backupDirectory(DirectoriesContainer.get(userinput - 1));
+                            System.out.println("Directory Backup Successfull.");
+                            sc.nextLine();
+                            continue;
+                        } else {
+
+                            dn.backupFile(DirectoriesContainer.get(userinput - 1));
+                            System.out.println("File Backup Successfull.");
+                            sc.nextLine();
+                            continue;
+                        }
+
+                    } else {
+                        System.out.println("Invalid Input");
+                        sc.nextLine();
+                        continue;
+                    }
+                } else {
+                    System.out.println("Invalid Input");
+                    sc.nextLine();
+                    continue;
+                }
+            }
             if (UserInput.equals("N") || UserInput.equals("n")) {
                 System.out.println("Enter the Directory name that you want to create: ");
                 String NewDir = sc.nextLine();
                 dn.MakeNewDir(NewDir);
                 continue;
             }
-             if (UserInput.equals("F") || UserInput.equals("f")) {
+            if (UserInput.equals("F") || UserInput.equals("f")) {
                 System.out.println("Enter the File name that you want to create: ");
                 String NewFile = sc.nextLine();
                 dn.MakeNewFile(NewFile);
@@ -174,17 +245,6 @@ public class NavigatingService implements INavigatingService {
         } while (!(UserInput.equals("x") || UserInput.equals("X")));
 
     }
-
-    // public static void NewDirFunc(String DirName,ArrayList<String>
-    // DirectoriesContainer){
-    // for (String dir : DirectoriesContainer) {
-    // if(dir.equals(DirName)){
-
-    // }
-
-    // }
-    // }
-    
 
     public static boolean isValidInt(String s) {
         // this function checks that the string is a valid integer and also greater than

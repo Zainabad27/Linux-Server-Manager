@@ -142,18 +142,23 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     }
 
     @Override
-    public void backupFile(String File) throws Exception {
+    public String backupFile(String File) throws Exception {
         w.write("mkdir -p /home/zainabad/ProjectBackups\n");
         w.write("cp " + File + " /home/zainabad/ProjectBackups\n");
         w.flush();
 
+
+        return "/home/zainabad/ProjectBackups";
     }
 
     @Override
-    public void backupDirectory(String Directory) throws Exception {
+    public String backupDirectory(String Directory) throws Exception {
         w.write("mkdir -p /home/zainabad/ProjectBackups\n");
         w.write("cp -r" + Directory + " /home/zainabad/ProjectBackups\n");
         w.flush();
+
+
+        return "/home/zainabad/ProjectBackups";
 
     }
 
