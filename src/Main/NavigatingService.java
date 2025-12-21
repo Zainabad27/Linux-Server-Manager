@@ -38,10 +38,26 @@ public class NavigatingService implements INavigatingService {
                 continue;
             }
             System.out.println("Enter the corresponding number to enter a directory ");
-            System.out.println("Enter Corresponding number Starting with D to delete that File/Directory");
-            System.out.println("Enter X to Quit");
+            System.out.println("Press Corresponding number Starting with D to delete that File/Directory");
             System.out.println("Press P to move to parent Directory ");
+            System.out.println("Press Corresponding number Starting with B to take Backup.");
+            System.out.println("Press N to Make a new Directory.");
+            System.out.println("Press f to make a new File.");
+            System.out.println("Enter X to Quit");
             UserInput = sc.nextLine();
+
+            if (UserInput.equals("N") || UserInput.equals("n")) {
+                System.out.println("Enter the Directory name that you want to create: ");
+                String NewDir = sc.nextLine();
+                dn.MakeNewDir(NewDir);
+                continue;
+            }
+             if (UserInput.equals("F") || UserInput.equals("f")) {
+                System.out.println("Enter the File name that you want to create: ");
+                String NewFile = sc.nextLine();
+                dn.MakeNewFile(NewFile);
+                continue;
+            }
 
             if (UserInput.equals("p") || UserInput.equals("P")) {
                 dn.EnterIntoTheParentDirectory();
@@ -62,11 +78,19 @@ public class NavigatingService implements INavigatingService {
                         boolean IsDirectory = dn.IsDirectory(DirectoriesContainer.get(userinput - 1));
 
                         if (IsDirectory) {
-                            dn.RemoveDirectory(DirectoriesContainer.get(userinput - 1));
+                            String Confirmation;
+                            System.out.println("Enter the Directory Name To delete it: ");
+                            Confirmation = sc.nextLine();
+                            if (Confirmation.equals(DirectoriesContainer.get(userinput - 1))) {
+                                dn.RemoveDirectory(DirectoriesContainer.get(userinput - 1));
+                                System.out.println("Removed.");
+                            } else {
+                                System.out.println("Directory Name Not Matched");
+                            }
 
-                            System.out.println("Removed.");
                             sc.nextLine();
                             continue;
+
                         } else {
                             dn.RemoveFile(DirectoriesContainer.get(userinput - 1));
                             System.out.println("Removed.");
@@ -150,6 +174,17 @@ public class NavigatingService implements INavigatingService {
         } while (!(UserInput.equals("x") || UserInput.equals("X")));
 
     }
+
+    // public static void NewDirFunc(String DirName,ArrayList<String>
+    // DirectoriesContainer){
+    // for (String dir : DirectoriesContainer) {
+    // if(dir.equals(DirName)){
+
+    // }
+
+    // }
+    // }
+    
 
     public static boolean isValidInt(String s) {
         // this function checks that the string is a valid integer and also greater than

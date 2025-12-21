@@ -6,6 +6,10 @@ public interface IDirectoriesNavigator {
 
     Process GetProcess();
 
+    void MakeNewDir(String DirName) throws Exception;
+
+    void MakeNewFile(String Filename) throws Exception;
+
     void backupFile(String File) throws Exception;
 
     void backupDirectory(String Directory) throws Exception;

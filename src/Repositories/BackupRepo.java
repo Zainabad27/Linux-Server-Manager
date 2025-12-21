@@ -54,7 +54,7 @@ public class BackupRepo implements IBackupRepo {
             pst.setString(3, date);
 
             int rows = pst.executeUpdate();
-            System.out.println(rows + " Inserted.");
+            System.out.println(rows + "rows Inserted.");
             conn.close();
 
         } catch (Exception e) {

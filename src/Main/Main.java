@@ -21,7 +21,7 @@ public class Main {
 
 
         try {
-            Process p = pb.start();
+            Process p = pb.start(); 
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(p.getOutputStream()));
             IDirectoriesNavigator dn = new DirectoriesNavigator(p, reader, writer);

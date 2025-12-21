@@ -138,15 +138,6 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
 
         w.flush();
 
-        // String Line;
-        // Line = r.readLine();
-        // if (Line.equals("__end__")) {
-        // System.out.println(Filename + " Removed.");
-        // return true;
-        // } else {
-        // System.out.println(Line);
-        // return false;
-        // }
 
     }
 
@@ -162,6 +153,19 @@ public class DirectoriesNavigator implements IDirectoriesNavigator {
     public void backupDirectory(String Directory) throws Exception {
         w.write("mkdir -p /home/zainabad/ProjectBackups\n");
         w.write("cp -r" + Directory + " /home/zainabad/ProjectBackups\n");
+        w.flush();
+
+    }
+
+    @Override
+    public void MakeNewDir(String DirName) throws Exception {
+        w.write("mkdir -p" + DirName + "\n");
+        w.flush();
+    }
+
+    @Override
+    public void MakeNewFile(String Filename) throws Exception {
+        w.write("touch " + Filename + "\n");
         w.flush();
 
     }
